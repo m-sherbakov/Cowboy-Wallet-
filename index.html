@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="image/logo_site.png" type="image/png">
+    <title>Crypto Wallet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="createWallet" id="createWallet">
+        <div>Create Wallet</div>
+        <img src="image/lock-key.gif" class="lock-key" alt="Lock Key">
+    </div>
+    
+    <div class="walletOption" id="walletOption">
+        <img src="image/diamond.gif" alt="Diamond">
+        <span>I have a Wallet</span>
+    </div>
+
+    <div id="generateKeysContainer" class="generateKeysContainer">
+        <div class="generateKeysBox">
+            <img src="image/writing.gif" class="star-image" alt="Star">
+            <div class="generate-text">Generate keys and address</div>
+        </div>
+    </div>
+
+    <div id="keyContainer" class="keyContainer">
+        <div class="keyBox">
+            <img src="image/star.gif" alt="Key GIF" class="key-image">
+            <span id="privateKey" class="key-text"></span>
+            <img src="image/copy_button.png" alt="Copy Icon" class="copy-icon" onclick="copyToClipboard('privateKey')">
+        </div>
+        <div class="keyBox">
+            <img src="image/star-twinkl.gif" alt="Key GIF" class="key-image">
+            <span id="publicKey" class="key-text"></span>
+            <img src="image/copy_button.png" alt="Copy Icon" class="copy-icon" onclick="copyToClipboard('publicKey')">
+        </div>
+        <div class="keyBox">
+            <img src="image/compass.gif" alt="Key GIF" class="key-image">
+            <span id="address" class="key-text"></span>
+            <img src="image/copy_button.png" alt="Copy Icon" class="copy-icon" onclick="copyToClipboard('address')">
+        </div>
+    </div>
+
+    <div id="backButton" class="backButton">
+        <img src="image/back_button.png" alt="Back Button" />
+    </div>
+
+    <div id="rpcInputSection" class="rpcInputSection">
+        <img src="image/thunder.gif" alt="Thunder" class="thunder-image">
+        <input type="text" id="rpcUrlInput" class="rpcUrlInput" placeholder="Enter URL RPC">
+    </div>
+
+    <div id="sendButtonSection" class="sendButtonSection">
+        <button id="sendButton" class="send-button">
+            <img src="image/money-flying.gif" alt="Money Flying" class="send-image">
+            Send
+        </button>
+    </div>
+
+    <div id="transactionInputsSection" class="transactionInputsSection">
+        <img src="image/pencil-writing.gif" alt="Pencil Writing" class="pencil-image">
+        <input type="text" id="recipientAddress" class="transaction-input" placeholder="Recipient Address">
+        <input type="number" id="amount" class="transaction-input" placeholder="Amount">
+        <input type="text" id="gasLimit" class="transaction-input" placeholder="Gas Limit (optional)" value="21000">
+        <input type="text" id="gasPrice" class="transaction-input" placeholder="Gas Price (optional)" value="20">
+        <div id="confirmButtonSection" class="confirmButtonSection">
+            <button id="confirmButton" class="confirm-button">
+                <img src="image/checkmark.gif" alt="Checkmark" class="confirm-image">
+                Confirm
+            </button>
+        </div>
+    </div>
+
+    <div id="privateKeySection" class="privateKeySection">
+        <img src="image/private-key.gif" alt="Private Key" class="private-key-image">
+        <input type="password" id="privateKeyInput" class="transaction-input" placeholder="Enter Private Key">
+        <div id="signButtonSection" class="signButtonSection">
+            <button id="signButton" class="sign-button">
+                <img src="image/checkmark.gif" alt="Checkmark" class="sign-image">
+                Sign
+            </button>
+        </div>
+    </div>
+
+    <div id="transactionStatus" class="transactionStatus">
+        <img id="statusImage" src="" alt="Status Image" class="status-image">
+        <p id="statusMessage" class="status-message"></p>
+    </div>
+
+    <div id="sidebar" class="sidebar">
+        <button id="closeSidebarButton">&times;</button>
+        <div class="wallet-info">
+            <img src="image/wallet.gif" alt="Wallet">
+            <h2>Balance</h2>
+            <input type="text" id="rpcUrlBalance" placeholder="Enter RPC URL">
+            <input type="text" id="addressBalance" placeholder="Enter Address">
+            <button id="checkBalanceButton">Check</button>
+            <p id="balanceOutput"></p>
+        </div>
+    </div>
+    
+    <button id="toggleSidebarButton">Balance</button>
+
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script src="main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,561 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url('font/08404bcfb1dae67a-s.p.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+:root {
+    --clr-1: #ff4545;
+    --clr-2: #00ff99;
+    --clr-3: #006aff;
+    --clr-4: #ff0095;
+    --clr-5: #ff4545;
+}
+
+body {
+    background: black;
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+    background: url('image/background.png') no-repeat center center fixed;
+    overflow: hidden;
+    font-family: 'CustomFont', sans-serif;
+}
+
+.createWallet {
+    width: 320px;
+    height: 320px;
+    aspect-ratio: 1 / 1.5;
+    background: #1c1f2b;
+    border-radius: 0.5rem;
+    font-family: 'CustomFont', sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.9rem;
+    position: relative;
+    transition: transform 1s ease, opacity 1s ease;
+}
+
+@keyframes rotation {
+    0%   { --gradient-angle: 0deg; }
+    100% { --gradient-angle: 360deg; }
+}
+
+.createWallet img.lock-key {
+    width: 270px; /* Reduce the size */
+    height: auto;
+    margin-top: 5px; /* Add margin to create space between the text and image */
+}
+
+.createWallet::before, .createWallet::after {
+    content: "";
+    position: absolute;
+    inset: -.2rem;
+    z-index: -1;
+    background: conic-gradient(
+        from var(--gradient-angle),
+        var(--clr-1),
+        var(--clr-2),
+        var(--clr-3),
+        var(--clr-4),
+        var(--clr-5)
+    );
+    border-radius: inherit;
+    animation: rotation 20s linear infinite;
+}
+
+.createWallet::after {
+    filter: blur(3.5rem);
+}
+
+.walletOption {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the start (left) */
+    margin-top: 20px;
+    padding: 10px;
+    width: 300px;
+    background-color: #1c1f2b;
+    border-radius: 0.5rem;
+    color: white;
+    font-family: 'CustomFont', sans-serif;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: transform 1s ease, opacity 1s ease;
+}
+
+.walletOption img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px; /* Smaller space between image and text */
+}
+
+/* Animation for sliding out */
+.slide-out-left {
+    transform: translateX(-200%);
+    opacity: 0;
+}
+
+.slide-out-right {
+    transform: translateX(200%);
+    opacity: 0;
+}
+
+/* New rectangle that slides in */
+.newWalletOption {
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    width: 300px;
+    background-color: #1c1f2b;
+    border-radius: 0.5rem;
+    color: white;
+    font-family: 'CustomFont', sans-serif;
+    font-size: 1.8rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 1s ease;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.newWalletOption img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.newWalletOption.show {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 40%; /* Смещение вверх на 40% */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    z-index: 20; /* Поверхность */
+    padding: 10px 20px;
+    background-color: #1c1f2b;
+    border-radius: 0.5rem;
+}
+
+/* Дополнительные стили для анимации */
+.slide-in {
+    display: flex; /* Обеспечивает видимость */
+    animation: slideInFromRight 1s ease forwards;
+}
+
+/* Обеспечивает, что элементы остаются видимыми при сдвиге */
+.createWallet,
+.walletOption,
+.newWalletOption {
+    transition: transform 1s ease, opacity 1s ease;
+}
+
+.generateKeysContainer {
+    display: none;
+    position: fixed;
+    top: 30%; /* Расположение выше на странице */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    z-index: 10;
+    transition: opacity 1s ease;
+    font-family: 'CustomFont', sans-serif;
+}
+
+.generateKeysContainer.show {
+    display: flex;
+    opacity: 1;
+}
+
+.generateKeysBox {
+    display: flex;
+    flex-direction: row; /* Горизонтальное расположение элементов */
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px;
+    background-color: #1c1f2b; /* Цвет прямоугольника */
+    border-radius: 0.5rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.generateKeysContainer .star-image {
+    width: 50px;
+    height: auto;
+    margin-right: 10px; /* Добавление отступа между изображением и текстом */
+}
+
+.generateKeysContainer .generate-text {
+    font-size: 1.5rem;
+    color: white;
+    font-family: 'CustomFont', sans-serif;
+    text-align: center;
+}
+
+.keyContainer {
+    display: none; /* Скрыто по умолчанию */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.keyBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #1c1f2b;
+    border-radius: 30px;
+    width: 600px;
+    height: 50px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.key-image {
+    width: 40px;
+    margin-left: 10px;
+}
+
+.key-text {
+    flex-grow: 1;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-family: 'CustomFont', sans-serif;
+    text-overflow: ellipsis; /* Добавляет многоточие, если текст длиннее контейнера */
+    overflow: hidden; /* Обрезает текст, если он выходит за пределы */
+    white-space: nowrap; /* Запрещает перенос текста на новую строку */
+    padding-left: 10px; /* Добавляет отступ, чтобы текст не прилипал к изображению */
+    padding-right: 10px; /* Добавляет отступ, чтобы текст не прилипал к иконке копирования */
+    max-width: calc(100% - 100px); /* Устанавливает максимальную ширину текста, чтобы он не выходил за пределы */
+}
+
+.copy-icon {
+    width: 40px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.keyContainer.show {
+    display: flex;
+}
+
+.backButton {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 20;
+    cursor: pointer;
+}
+
+.backButton img {
+    width: 25px;
+    height: auto;
+}
+
+.rpcInputSection {
+    display: none; /* Скрыто по умолчанию */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 15;
+    gap: 20px;
+    background-color: #1c1f2b; /* Опционально, если нужно обрамление */
+    padding: 20px;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    font-family: 'CustomFont', sans-serif;
+}
+
+.rpcInputSection.show {
+    display: flex;
+}
+
+.thunder-image {
+    width: 100px;
+    height: auto;
+}
+
+.rpcUrlInput {
+    width: 300px;
+    padding: 10px;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.sendButtonSection {
+    display: none; /* Скрыто по умолчанию */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    font-family: 'CustomFont', sans-serif;
+}
+
+.sendButtonSection.show {
+    display: flex;
+}
+
+.send-button {
+    background-color: #1c1f2b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease;
+    font-family: 'CustomFont', sans-serif;
+}
+
+.send-button:hover {
+    background-color: #1d2029;
+}
+
+.send-button img.send-image {
+    width: 60px;
+    height: auto;
+    margin-right: 10px; /* Отступ между изображением и текстом */
+}
+
+.transactionInputsSection {
+    display: none; /* Скрыто по умолчанию */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    position: relative; /* Сделать блок позиционируемым */
+    top: -300px; /* Смещение блока выше */
+}
+
+.transactionInputsSection.show {
+    display: flex;
+}
+
+.pencil-image {
+    width: 200px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.transaction-input {
+    width: 300px;
+    padding: 10px;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.confirmButtonSection {
+    margin-top: 20px;
+}
+
+.confirm-button {
+    background-color: #1c1f2b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease;
+}
+
+.confirm-button:hover {
+    background-color: #1d2029;
+}
+
+.confirm-button img.confirm-image {
+    width: 40px;
+    height: auto;
+}
+
+.privateKeySection {
+    display: none; /* Скрыто по умолчанию */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    position: relative;
+    top: -150px; /* Смещение блока выше */
+    
+}
+
+.privateKeySection.show {
+    display: flex; /* Показать элемент */
+}
+
+.private-key-image {
+    width: 50px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.sign-button {
+    background-color: #1c1f2b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease;
+    font-family: 'CustomFont', sans-serif;
+}
+
+.sign-button:hover {
+    background-color: #9cfc77;
+}
+
+.sign-button img.sign-image {
+    width: 20px;
+    height: auto;
+}
+
+.transactionStatus {
+    display: none; /* Скрыто по умолчанию */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    position: fixed; /* Фиксированное позиционирование */
+    top: 50%; /* Поднимает блок на 30% от верха экрана, можно настроить по вкусу */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Центрирует блок по горизонтали */
+    z-index: 20; /* Убедитесь, что блок находится выше других элементов */
+}
+.status-image {
+    width: 300px;
+    height: auto;
+    top: -150px;
+}
+
+.status-message {
+    font-size: 3rem;
+    color: white;
+    font-family: 'CustomFont', sans-serif;
+    text-align: center;
+    top: -150px;
+}
+
+/* Sidebar styling */
+.sidebar {
+    position: fixed;
+    right: -300px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+    z-index: 1000;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(255, 255, 255, 0.5);
+    font-family: 'CustomFont', sans-serif;
+}
+
+.sidebar.show {
+    right: 0;
+}
+
+.wallet-info {
+    text-align: center;
+    color: white; /* Сделать текст белым */
+}
+
+.wallet-info img {
+    width: 180px;
+    margin-bottom: 20px;
+}
+
+.wallet-info input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.wallet-info button {
+    width: 100%;
+    padding: 10px;
+    background: #000000;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.wallet-info button:hover {
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+#toggleSidebarButton {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: #ffffff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#toggleSidebarButton:hover {
+    background: #ffffff;
+}
+
+#closeSidebarButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
